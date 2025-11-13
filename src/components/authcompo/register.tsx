@@ -4,6 +4,10 @@ import { Input } from "@/components/ui/input"
 
 import { useForm } from "react-hook-form"
 
+import { z} from "zod"
+import {zodResolver} from '@hookform/resolvers/zod'
+
+
 import {
   Form,
   FormControl,
@@ -13,12 +17,37 @@ import {
   FormLabel,
   FormMessage
 } from "@/components/ui/form"
+import { useState } from "react"
+import { Eye, EyeOff } from "lucide-react"
+
+const formschema = z.object({
+  username: z.string().min(2).max(50),
+  email: z.email(),
+  password: z.string().min(4),
+  confirmPassword: z.string()
+}).refine((data)  => data.password === data.confirmPassword ,{
+  message: "pass is not match",
+  path: ["confirmPassword"]
+})
 
 export function SignupForm({ className, ...props }: React.ComponentProps<"form">) {
-  
-  const form = useForm()
 
-  const onSubmit = (data: any) => {
+
+   const [showPassword, setShowPassword] = useState(false)
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+  
+  const form = useForm<z.infer<typeof formschema>>({
+    resolver: zodResolver(formschema),
+    defaultValues: {
+      username: "",
+      email: "",
+      password: "",
+      confirmPassword: ""
+
+    }
+  })
+
+  const onSubmit = (data: z.infer<typeof formschema>) => {
     console.log(data)
   }
 
@@ -52,22 +81,10 @@ export function SignupForm({ className, ...props }: React.ComponentProps<"form">
           )}
         />
 
-        {/* Full Name */}
-        <FormField
-          control={form.control}
-          name="name"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Full Name</FormLabel>
-              <FormControl>
-                <Input placeholder="John Doe" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        
+       
 
-        {/* Email */}
+      
         <FormField
           control={form.control}
           name="email"
@@ -85,37 +102,74 @@ export function SignupForm({ className, ...props }: React.ComponentProps<"form">
           )}
         />
 
-        {/* Password */}
-        <FormField
-          control={form.control}
-          name="password"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Password</FormLabel>
+       
+      {/* Password Field */}
+      <FormField
+        control={form.control}
+        name="password"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Password</FormLabel>
+            <div className="relative">
               <FormControl>
-                <Input type="password" {...field} />
+                <Input
+                  type={showPassword ? "text" : "password"}
+                  {...field}
+                />
               </FormControl>
-              <FormDescription>Must be at least 8 characters long.</FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+              <Button
+                type="button"
+                variant="ghost"
+                size="sm"
+                className="absolute right-1 top-1/2 -translate-y-1/2"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? (
+                  <EyeOff className="h-4 w-4" />
+                ) : (
+                  <Eye className="h-4 w-4" />
+                )}
+              </Button>
+            </div>
+            <FormDescription>Must be at least 8 characters long.</FormDescription>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
 
-        {/* Confirm Password */}
-        <FormField
-          control={form.control}
-          name="confirmPassword"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Confirm Password</FormLabel>
+      {/* Confirm Password Field */}
+      <FormField
+        control={form.control}
+        name="confirmPassword"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Confirm Password</FormLabel>
+            <div className="relative">
               <FormControl>
-                <Input type="password" {...field} />
+                <Input
+                  type={showConfirmPassword ? "text" : "password"}
+                  {...field}
+                />
               </FormControl>
-              <FormDescription>Please confirm your password.</FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+              <Button
+                type="button"
+                variant="ghost"
+                size="sm"
+                className="absolute right-1 top-1/2 -translate-y-1/2"
+                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+              >
+                {showConfirmPassword ? (
+                  <EyeOff className="h-4 w-4" />
+                ) : (
+                  <Eye className="h-4 w-4" />
+                )}
+              </Button>
+            </div>
+            <FormDescription>Please confirm your password.</FormDescription>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
 
         <Button type="submit">Create Account</Button>
 
