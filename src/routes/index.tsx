@@ -1,9 +1,13 @@
 import Login from "@/auth/Login";
 import Register from "@/auth/Register";
 import adminlayout from "@/components/adminlayout";
+import Verify from "@/components/authcompo/Verify";
 import commonlayout from "@/components/commonlayout";
 import about from "@/pages/about";
 import analytics from "@/pages/analytics";
+import contect from "@/pages/contect";
+import faq from "@/pages/faq";
+import Features from "@/pages/Features";
 import home from "@/pages/home";
 import { createBrowserRouter } from "react-router";
 
@@ -20,6 +24,18 @@ export const router = createBrowserRouter([
         Component: about,
         path: "about",
       },
+      {
+        Component: contect,
+        path : "contect"
+      },
+      {
+        Component: faq,
+        path: "faq"
+      },
+      {
+        Component: Features,
+        path: "features"
+      }
     ],
   },
 
@@ -29,7 +45,7 @@ export const router = createBrowserRouter([
     children: [
       {
         Component: analytics,
-        path: "analytic",
+        path: "analytics",
       },
     ],
   },
@@ -40,5 +56,9 @@ export const router = createBrowserRouter([
   {
     Component: Login,
     path: "login"
+  },
+  {
+    Component: Verify,
+    path: "verify"
   }
 ]);

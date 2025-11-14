@@ -11,6 +11,9 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
+import { useLoginMutation } from "@/redux/features/auth/auth.api"
+import { toast } from "sonner"
+import { useNavigate } from "react-router"
 
 export function LoginForm({
   className,
@@ -24,8 +27,24 @@ export function LoginForm({
     }
   })
 
-  const onSubmit = (data: any) => {
+  const [login] = useLoginMutation()
+  const navigate = useNavigate()
+
+  const onSubmit = async (data: any) => {
     console.log("Login Data:", data)
+    try {
+      const res = await login(data).unwrap()
+      console.log(res)
+      toast("succes")
+      navigate("/")
+
+    } catch (error: any) {
+      console.error(error)
+      // if(error.status === 401) {
+      //   toast.error("not verify")
+      //   navigate("/verify", {state: data.email})
+      // }
+    }
   }
 
   return (

@@ -19,6 +19,8 @@ import {
 } from "@/components/ui/form"
 import { useState } from "react"
 import { Eye, EyeOff } from "lucide-react"
+import { useRegisterMutation } from "@/redux/features/auth/auth.api"
+import { useNavigate } from "react-router"
 
 const formschema = z.object({
   username: z.string().min(2).max(50),
@@ -35,6 +37,9 @@ export function SignupForm({ className, ...props }: React.ComponentProps<"form">
 
    const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+  const navigate = useNavigate()
+
+  const [register] = useRegisterMutation()
   
   const form = useForm<z.infer<typeof formschema>>({
     resolver: zodResolver(formschema),
@@ -47,8 +52,20 @@ export function SignupForm({ className, ...props }: React.ComponentProps<"form">
     }
   })
 
-  const onSubmit = (data: z.infer<typeof formschema>) => {
-    console.log(data)
+  const onSubmit = async (data: z.infer<typeof formschema>) => {
+
+    const userinfo = {
+      name: data.username,
+      email: data.email,
+      password: data.password
+    }
+    try {
+      const result = await register(userinfo).unwrap()
+      console.log(result)
+      navigate("/login")
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
