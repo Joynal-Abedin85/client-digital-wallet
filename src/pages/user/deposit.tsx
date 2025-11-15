@@ -1,4 +1,4 @@
-import { useDepositMutation } from "@/redux/features/userapi";
+import  {useDepositMutation}  from "@/redux/features/userapi";
 import { useState } from "react";
 
 const Deposit = () => {

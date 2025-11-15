@@ -36,4 +36,4 @@ const authapi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useRegisterMutation, useLoginMutation } = authapi;
+export const { useRegisterMutation, useLoginMutation, useUpdateProfileMutation, useGetMeQuery } = authapi;

@@ -1,7 +1,7 @@
-import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { useForm } from "react-hook-form"
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { useForm } from "react-hook-form";
 
 import {
   Form,
@@ -10,42 +10,53 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
-import { useLoginMutation } from "@/redux/features/auth/auth.api"
-import { toast } from "sonner"
-import { useNavigate } from "react-router"
+} from "@/components/ui/form";
+import { useLoginMutation } from "@/redux/features/auth/auth.api";
+import { toast } from "sonner";
+import { useNavigate } from "react-router";
+import { useDispatch } from "react-redux";
+import { setToken, setUser } from "@/redux/features/authslice";
+import { store } from "@/redux/store";
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"form">) {
-
   const form = useForm({
     defaultValues: {
       email: "",
-      password: ""
-    }
-  })
+      password: "",
+    },
+  });
 
-  const [login] = useLoginMutation()
-  const navigate = useNavigate()
+  const [login] = useLoginMutation();
+  const dispatch = useDispatch();
+  // const { login: saveUser } = useAuth();
+
+  const navigate = useNavigate();
 
   const onSubmit = async (data: any) => {
-    console.log("Login Data:", data)
+    console.log("Login Data:", data);
     try {
-      const res = await login(data).unwrap()
-      console.log(res)
-      toast("succes")
-      navigate("/")
+      const res = await login(data).unwrap();
+      console.log(res.data.tokens.accesstoken)
+      console.log(res.data.user);
+      dispatch(setUser(res.data.user));
+      dispatch(setToken(res.data.tokens.accesstoken));
+      toast("Login successful!");
+      navigate("/user/dashboard");
+      console.log(store.getState().auth);
 
+
+      toast("succes");
     } catch (error: any) {
-      console.error(error)
+      console.error(error);
       // if(error.status === 401) {
       //   toast.error("not verify")
       //   navigate("/verify", {state: data.email})
       // }
     }
-  }
+  };
 
   return (
     <Form {...form}>
@@ -54,7 +65,6 @@ export function LoginForm({
         className={cn("flex flex-col gap-6", className)}
         {...props}
       >
-
         <div className="flex flex-col items-center gap-1 text-center">
           <h1 className="text-2xl font-bold">Login to your account</h1>
           <p className="text-muted-foreground text-sm text-balance">
@@ -136,9 +146,11 @@ export function LoginForm({
 
         <p className="text-center text-sm">
           Don&apos;t have an account?{" "}
-          <a href="#" className="underline underline-offset-4">Sign up</a>
+          <a href="#" className="underline underline-offset-4">
+            Sign up
+          </a>
         </p>
       </form>
     </Form>
-  )
+  );
 }

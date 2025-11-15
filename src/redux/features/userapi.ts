@@ -42,3 +42,17 @@ export const {
   useWithdrawMutation,
   useSendMoneyMutation,
 } = walletApi;
+
+
+
+export const transactionApi = baseApi.injectEndpoints({
+  endpoints: (build) => ({
+    getTransactions: build.query({
+      query: () => "wallets/transection",
+      providesTags: ["Transactions"],
+    }),
+  }),
+});
+
+export const { useGetTransactionsQuery } = transactionApi;
+
