@@ -1,5 +1,6 @@
 import  {useDepositMutation}  from "@/redux/features/userapi";
 import { useState } from "react";
+import { toast } from "sonner";
 
 const Deposit = () => {
   const [amount, setAmount] = useState(0);
@@ -7,7 +8,7 @@ const Deposit = () => {
 
   const handleDeposit = async () => {
     await deposit({ amount }).unwrap();
-    alert("Deposit Successful!");
+    toast("Deposit Successful!");
   };
 
   return (

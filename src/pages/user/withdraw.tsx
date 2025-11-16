@@ -1,5 +1,6 @@
 import { useWithdrawMutation } from "@/redux/features/userapi";
 import { useState } from "react";
+import { toast } from "sonner";
 
 const Withdraw = () => {
   const [amount, setAmount] = useState(0);
@@ -7,7 +8,7 @@ const Withdraw = () => {
 
   const handleWithdraw = async () => {
     await withdraw({ amount }).unwrap();
-    alert("Withdraw Successful!");
+    toast("Withdraw Successful!");
   };
 
   return (

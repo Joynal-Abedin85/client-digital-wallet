@@ -20,7 +20,7 @@ import {
 import { useState } from "react"
 import { Eye, EyeOff } from "lucide-react"
 import { useRegisterMutation } from "@/redux/features/auth/auth.api"
-import { useNavigate } from "react-router"
+import { Link, useNavigate } from "react-router"
 
 const formschema = z.object({
   username: z.string().min(2).max(50),
@@ -192,12 +192,12 @@ export function SignupForm({ className, ...props }: React.ComponentProps<"form">
 
         <div className="text-center text-sm text-muted-foreground">Or continue with</div>
 
-        <Button variant="outline" type="button">
+        {/* <Button variant="outline" type="button">
           Sign up with GitHub
-        </Button>
+        </Button> */}
 
         <p className="text-center text-sm">
-          Already have an account? <a href="#" className="underline">Sign in</a>
+          Already have an account? <Link to={"/login"} className="underline">Sign in</Link>
         </p>
       </form>
     </Form>

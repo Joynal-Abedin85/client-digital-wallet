@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/form";
 import { useLoginMutation } from "@/redux/features/auth/auth.api";
 import { toast } from "sonner";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 import { setToken, setUser } from "@/redux/features/authslice";
 import { store } from "@/redux/store";
@@ -116,7 +116,7 @@ export function LoginForm({
           Or continue with
         </div>
 
-        <Button variant="outline" type="button">
+        {/* <Button variant="outline" type="button">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
             <path
               d="M12 .297c-6.63 0-12 5.373-12 12 
@@ -142,13 +142,13 @@ export function LoginForm({
             />
           </svg>
           Login with GitHub
-        </Button>
+        </Button> */}
 
         <p className="text-center text-sm">
           Don&apos;t have an account?{" "}
-          <a href="#" className="underline underline-offset-4">
+          <Link to={"/register"} className="underline underline-offset-4">
             Sign up
-          </a>
+          </Link>
         </p>
       </form>
     </Form>

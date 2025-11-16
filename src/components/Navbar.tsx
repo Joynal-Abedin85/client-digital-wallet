@@ -1,11 +1,15 @@
 import { useState } from "react";
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
+import { toast } from "sonner";
 
 const Navbar = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false); // Mobile menu
-  const [isProfileOpen, setIsProfileOpen] = useState(false); // Profile dropdown
+  const [isMenuOpen, setIsMenuOpen] = useState(false); 
+  const [isProfileOpen, setIsProfileOpen] = useState(false); 
+  const navigate = useNavigate();
+    const location = useLocation(); // <-- current route ধরবে
 
-  // Menu items for navbar
+
+  // Menu items
   const menuItems = [
     { label: "home", path: "/" },
     { label: "About", path: "/about" },
@@ -16,10 +20,31 @@ const Navbar = () => {
     { label: "Blog", path: "/blog" },
   ];
 
+    const isActiveRoute = (path: string) => {
+    return location.pathname === path;
+  };
+
+  // ✅ Logout Handler
+  const handleLogout = () => {
+    // Clear tokens / user data
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+
+    // if using redux -> dispatch(logout());
+    // dispatch(logout());
+
+    toast("logout sucsess")
+
+    setIsProfileOpen(false);
+    setIsMenuOpen(false);
+
+    navigate("/login");
+  };
+
   return (
     <header className="bg-white shadow relative z-50">
       <div className="mx-auto max-w-7xl px-4 h-16 flex items-center justify-between">
-        
+
         {/* Logo */}
         <Link to="/" className="text-teal-600 font-bold text-xl">
           MySite
@@ -32,7 +57,11 @@ const Navbar = () => {
               <li key={item.path}>
                 <Link
                   to={item.path}
-                  className="text-gray-600 hover:text-gray-800 transition"
+                  className={`transition ${
+                    isActiveRoute(item.path)
+                      ? "text-teal-600 font-semibold border-b-2 border-teal-600 pb-1"
+                      : "text-gray-600 hover:text-gray-800"
+                  }`}
                 >
                   {item.label}
                 </Link>
@@ -43,7 +72,6 @@ const Navbar = () => {
 
         {/* Profile + Mobile Button */}
         <div className="flex items-center gap-4">
-          
           {/* Profile Dropdown */}
           <div className="relative hidden md:block">
             <button
@@ -61,12 +89,16 @@ const Navbar = () => {
               <div className="absolute right-0 mt-2 w-48 bg-white border shadow rounded-md animate-fadeIn">
                 <Link
                   to="/dashboard"
-                  className="block w-full text-left px-4 py-2 hover:bg-gray-50 rounded"
+                  className="block px-4 py-2 hover:bg-gray-50"
                   onClick={() => setIsProfileOpen(false)}
                 >
                   Dashboard
                 </Link>
-                <button className="block w-full text-left px-4 py-2 text-red-600 hover:bg-red-50 rounded">
+
+                <button
+                  onClick={handleLogout}
+                  className="block w-full text-left px-4 py-2 text-red-600 hover:bg-red-50"
+                >
                   Logout
                 </button>
               </div>
@@ -96,7 +128,7 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile Menu Dropdown */}
+      {/* Mobile Menu */}
       {isMenuOpen && (
         <div className="md:hidden bg-white border-t shadow animate-slideDown">
           <ul className="flex flex-col gap-1 p-4">
@@ -104,7 +136,11 @@ const Navbar = () => {
               <li key={item.path}>
                 <Link
                   to={item.path}
-                  className="block px-2 py-2 text-gray-700 hover:bg-gray-50 rounded"
+                  className={`block px-2 py-2 rounded ${
+                    isActiveRoute(item.path)
+                      ? "text-teal-600 font-semibold bg-teal-50"
+                      : "text-gray-700 hover:bg-gray-50"
+                  }`}
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {item.label}
@@ -112,16 +148,19 @@ const Navbar = () => {
               </li>
             ))}
 
-            {/* Mobile Profile Section */}
+            {/* Mobile Profile */}
             <li className="mt-3 border-t pt-3">
               <Link
                 to="/dashboard"
-                className="block w-full text-left px-2 py-2 hover:bg-gray-50 rounded"
+                className="block px-2 py-2 hover:bg-gray-50 rounded"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Dashboard
               </Link>
-              <button className="block w-full text-left px-2 py-2 text-red-600 hover:bg-red-50 rounded">
+              <button
+                onClick={handleLogout}
+                className="block w-full text-left px-2 py-2 text-red-600 hover:bg-red-50 rounded"
+              >
                 Logout
               </button>
             </li>

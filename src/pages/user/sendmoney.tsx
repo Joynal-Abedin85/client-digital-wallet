@@ -1,5 +1,6 @@
 import { useSendMoneyMutation } from "@/redux/features/userapi";
 import { useState } from "react";
+import { toast } from "sonner";
 
 const Send = () => {
   const [email, setEmail] = useState("");
@@ -8,7 +9,7 @@ const Send = () => {
 
   const handleSend = async () => {
     await sendMoney({ receiverEmail: email, amount }).unwrap();
-    alert("Money Sent Successfully!");
+    toast("Money Sent Successfully!");
   };
 
   return (

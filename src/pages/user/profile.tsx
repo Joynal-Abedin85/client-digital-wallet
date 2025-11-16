@@ -2,6 +2,7 @@ import { useGetMeQuery, useUpdateProfileMutation } from "@/redux/features/auth/a
 import { useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 import { setUser } from "@/redux/features/authslice";
+import { toast } from "sonner";
 
 const Profile = () => {
   const { data, refetch } = useGetMeQuery("");
@@ -28,7 +29,7 @@ const Profile = () => {
 
     await refetch(); // 🔥 Reload fresh user data from API
 
-    alert("Profile updated!");
+    toast("Profile updated!");
   };
 
   return (
