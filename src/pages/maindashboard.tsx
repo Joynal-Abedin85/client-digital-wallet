@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { Link, Outlet } from "react-router";
+import { Link, Outlet, useLocation } from "react-router";
 import type { RootState } from "@/redux/store";
 
 const DashboardPage = () => {
@@ -10,48 +10,57 @@ const DashboardPage = () => {
   const menuItems =
     role === "user"
       ? [
-          { path: "/d/user/dashboard", label: "User Dashboard" },
-          { path: "/d/user/deposit", label: "Deposit" },
-          { path: "/d/user/withdraw", label: "Withdraw" },
-          { path: "/d/user/send", label: "Send Money" },
-          { path: "/d/user/transactions", label: "Transactions" },
-          { path: "/d/user/profile", label: "Profile" },
-          {path: "/", label: "home "}
+          { path: "/", label: "home " },
+          { path: "/dashboard/profile", label: "Profile update" },
+          { path: "/dashboard", label: "User Dashboard" },
+          { path: "/dashboard/deposit", label: "Deposit" },
+          { path: "/dashboard/withdraw", label: "Withdraw" },
+          { path: "/dashboard/send", label: "Send Money" },
+          { path: "/dashboard/transactions", label: "Transactions" },
         ]
       : role === "admin"
       ? [
-          { path: "/d/admin/overview", label: "Overview" },
-          { path: "/d/admin/manage-user", label: "Manage Users" },
-          { path: "/d/admin/manage-agent", label: "Manage Agents" },
-          { path: "/d/admin/profile-manage", label: "Profile Manage" },
-          { path: "/d/admin/transactions", label: "All Transactions" },
+          { path: "/dashboard/overview", label: "Overview" },
+          { path: "/dashboard/manage-user", label: "Manage Users" },
+          { path: "/dashboard/manage-agent", label: "Manage Agents" },
+          { path: "/dashboard/profile-manage", label: "Profile Manage" },
+          { path: "/dashboard/transactions", label: "All Transactions" },
         ]
       : [
-    // { path: "/d/agent/overview", label: "Overview" },
-    { path: "/d/agent/cash-in", label: "Cash In" },
-    { path: "/d/agent/cash-out", label: "Cash Out" },
-    // { path: "/d/agent/transactions", label: "All Transactions" },
-    { path: "/d/agent/commission", label: "Commission History" },
-    // { path: "/d/agent/profile", label: "Profile" },
+          { path: "/", label: "home " },
+          { path: "/dashboard", label: "Profile" },
+          { path: "/dashboard/overview", label: "Overview" },
+          { path: "/dashboard/cash-in", label: "Cash In" },
+          { path: "/dashboard/cash-out", label: "Cash Out" },
+          { path: "/dashboard/transactionsagent", label: "All Transactions" },
+          { path: "/dashboard/commission", label: "Commission History" },
+          
         ];
 
+        const location = useLocation()
+
   return (
-    <div className="flex min-h-screen">
+  <div className="flex min-h-screen">
       {/* LEFT SIDEBAR */}
       <aside className="w-64 bg-gray-900 text-white p-5">
         <h2 className="text-xl font-bold mb-6 uppercase">{role} Panel</h2>
 
         <ul className="space-y-3">
-          {menuItems.map((item) => (
-            <li key={item.path}>
-              <Link
-                to={item.path}
-                className="block px-3 py-2 rounded hover:bg-gray-700"
-              >
-                {item.label}
-              </Link>
-            </li>
-          ))}
+          {menuItems.map((item) => {
+            const isActive = location.pathname === item.path; // active check
+            return (
+              <li key={item.path}>
+                <Link
+                  to={item.path}
+                  className={`block px-3 py-2 rounded hover:bg-gray-700 ${
+                    isActive ? "bg-blue-900" : ""
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              </li>
+            );
+          })}
         </ul>
       </aside>
 

@@ -4,6 +4,8 @@ import { PrivateRoute } from "@/components/authcompo/privateroute";
 import Verify from "@/components/authcompo/Verify";
 import commonlayout from "@/components/commonlayout";
 import about from "@/pages/about";
+import AgentOverview from "@/pages/agent/Agentoverview";
+import AgentTransactions from "@/pages/agent/Agenttransection";
 import CashIn from "@/pages/agent/CashIn";
 import CashOut from "@/pages/agent/Cashout";
 import CommissionHistory from "@/pages/agent/CommisionHistory";
@@ -68,18 +70,18 @@ export const router = createBrowserRouter([
   },
   {
     Component: DashboardPage,
-    path: "d",
+    path: "dashboard",
     children: [
       {
-        path: "user/dashboard",
+        path: "",
         element: (
-          <PrivateRoute role="user">
+          <PrivateRoute >
             <UserDashboard />
           </PrivateRoute>
         ),
       },
       {
-        path: "user/send",
+        path: "send",
         element: (
           <PrivateRoute role="user">
             <Send />
@@ -87,7 +89,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "user/deposit",
+        path: "deposit",
         element: (
           <PrivateRoute role="user">
             <Deposit />
@@ -95,7 +97,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "user/withdraw",
+        path: "withdraw",
         element: (
           <PrivateRoute role="user">
             <Withdraw />
@@ -103,7 +105,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "user/transactions",
+        path: "transactions",
         element: (
           <PrivateRoute role="user">
             <Transactions />
@@ -111,7 +113,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "user/profile",
+        path: "profile",
         element: (
           <PrivateRoute role="user">
             <Profile />
@@ -121,7 +123,7 @@ export const router = createBrowserRouter([
 
       // { path: "agent/overview", element: <PrivateRoute role="agent"><AgentOverview /></PrivateRoute> },
       {
-        path: "agent/cash-in",
+        path: "cash-in",
         element: (
           <PrivateRoute role="agent">
             <CashIn />
@@ -129,7 +131,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "agent/cash-out",
+        path: "cash-out",
         element: (
           <PrivateRoute role="agent">
             <CashOut />
@@ -137,13 +139,30 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "agent/commission",
+        path: "commission",
         element: (
           <PrivateRoute role="agent">
             <CommissionHistory />
           </PrivateRoute>
         ),
       },
+
+          {
+      path: "overview",
+      element: (
+        <PrivateRoute role="agent">
+          <AgentOverview />
+        </PrivateRoute>
+      )
+    },
+    {
+      path: "transactionsagent",
+      element: (
+        <PrivateRoute role="agent">
+          <AgentTransactions />
+        </PrivateRoute>
+      )
+    }
     ],
   },
 ]);
