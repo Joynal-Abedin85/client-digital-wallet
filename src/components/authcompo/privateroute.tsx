@@ -13,6 +13,8 @@ export const PrivateRoute = ({ children, role }: PrivateRouteProps) => {
 
   if (!user) return <Navigate to="/login" replace />;
 
+  console.log(user)
+
   if (role && user.role !== role) return <Navigate to="/unauthorized" replace />;
 
   return <>{children}</>;

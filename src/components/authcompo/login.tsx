@@ -44,7 +44,7 @@ export function LoginForm({
       dispatch(setUser(res.data.user));
       dispatch(setToken(res.data.tokens.accesstoken));
       toast("Login successful!");
-      navigate("/user/dashboard");
+      navigate("/");
       console.log(store.getState().auth);
 
 
