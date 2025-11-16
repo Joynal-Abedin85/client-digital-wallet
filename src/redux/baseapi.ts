@@ -15,6 +15,6 @@ import { fetchBaseQuery } from "@reduxjs/toolkit/query/react"
       return headers;
     },
   }),
-  tagTypes: ["Wallet", "User", "Transactions","Agent"],
+  tagTypes: ["Wallet", "User", "Transactions","Agent", "Admin"],
     endpoints: () => ({})
  })

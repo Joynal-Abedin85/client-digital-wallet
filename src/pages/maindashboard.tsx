@@ -20,11 +20,13 @@ const DashboardPage = () => {
         ]
       : role === "admin"
       ? [
-          { path: "/dashboard/overview", label: "Overview" },
-          { path: "/dashboard/manage-user", label: "Manage Users" },
-          { path: "/dashboard/manage-agent", label: "Manage Agents" },
+          { path: "/", label: "home " },
+          { path: "/dashboard", label: "Profile" },
+          { path: "/dashboard/overviewadmin", label: "Overview" },
+          { path: "/dashboard/manage-users", label: "Manage Users" },
+          { path: "/dashboard/manage-agents", label: "Manage Agents" },
+          { path: "/dashboard/transactionsadmin", label: "All Transactions" },
           { path: "/dashboard/profile-manage", label: "Profile Manage" },
-          { path: "/dashboard/transactions", label: "All Transactions" },
         ]
       : [
           { path: "/", label: "home " },
@@ -34,13 +36,12 @@ const DashboardPage = () => {
           { path: "/dashboard/cash-out", label: "Cash Out" },
           { path: "/dashboard/transactionsagent", label: "All Transactions" },
           { path: "/dashboard/commission", label: "Commission History" },
-          
         ];
 
-        const location = useLocation()
+  const location = useLocation();
 
   return (
-  <div className="flex min-h-screen">
+    <div className="flex min-h-screen">
       {/* LEFT SIDEBAR */}
       <aside className="w-64 bg-gray-900 text-white p-5">
         <h2 className="text-xl font-bold mb-6 uppercase">{role} Panel</h2>

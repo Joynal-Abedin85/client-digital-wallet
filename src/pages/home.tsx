@@ -1,8 +1,9 @@
+import Features from "./Features";
 
 const home = () => {
     return (
         <div>
-            this is home
+            <Features></Features>
         </div>
     );
 };

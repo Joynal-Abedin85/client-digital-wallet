@@ -4,16 +4,23 @@ import { PrivateRoute } from "@/components/authcompo/privateroute";
 import Verify from "@/components/authcompo/Verify";
 import commonlayout from "@/components/commonlayout";
 import about from "@/pages/about";
+import AllTransactions from "@/pages/admin/Alltransection";
+import ManageAgents from "@/pages/admin/Manageagent";
+import ProfileManage from "@/pages/admin/Managepprofile";
+import ManageUsers from "@/pages/admin/Manageuser";
+import AdminOverview from "@/pages/admin/Overview";
 import AgentOverview from "@/pages/agent/Agentoverview";
 import AgentTransactions from "@/pages/agent/Agenttransection";
 import CashIn from "@/pages/agent/CashIn";
 import CashOut from "@/pages/agent/Cashout";
 import CommissionHistory from "@/pages/agent/CommisionHistory";
+import Blog from "@/pages/Blog";
 import contect from "@/pages/contect";
 import faq from "@/pages/faq";
 import Features from "@/pages/Features";
 import home from "@/pages/home";
 import DashboardPage from "@/pages/maindashboard";
+import Pricing from "@/pages/pricing";
 import Unauthorized from "@/pages/Unauthorized";
 import Deposit from "@/pages/user/deposit";
 import Profile from "@/pages/user/profile";
@@ -47,6 +54,14 @@ export const router = createBrowserRouter([
       {
         Component: Features,
         path: "features",
+      },
+            {
+        Component: Pricing,
+        path: "pricing",
+      },
+      {
+        Component: Blog,
+        path: "blog",
       },
     ],
   },
@@ -162,7 +177,49 @@ export const router = createBrowserRouter([
           <AgentTransactions />
         </PrivateRoute>
       )
-    }
+    },
+    // admin
+
+    {
+        path: "overviewadmin",
+        element: (
+          <PrivateRoute role="admin">
+            <AdminOverview />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "manage-users",
+        element: (
+          <PrivateRoute role="admin">
+            <ManageUsers />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "manage-agents",
+        element: (
+          <PrivateRoute role="admin">
+            <ManageAgents />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "transactionsadmin",
+        element: (
+          <PrivateRoute role="admin">
+            <AllTransactions/>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "profile-manage",
+        element: (
+          <PrivateRoute role="admin">
+            <ProfileManage />
+          </PrivateRoute>
+        ),
+      },
     ],
   },
 ]);

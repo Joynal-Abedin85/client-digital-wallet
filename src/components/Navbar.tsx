@@ -1,40 +1,50 @@
 import { useState } from "react";
+import { Link } from "react-router";
 
 const Navbar = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false); // ✅ Mobile menu
-  const [isProfileOpen, setIsProfileOpen] = useState(false); // ✅ Profile dropdown
+  const [isMenuOpen, setIsMenuOpen] = useState(false); // Mobile menu
+  const [isProfileOpen, setIsProfileOpen] = useState(false); // Profile dropdown
+
+  // Menu items for navbar
+  const menuItems = [
+    { label: "home", path: "/" },
+    { label: "About", path: "/about" },
+    { label: "Contact", path: "/contect" },
+    { label: "FAQ", path: "/faq" },
+    { label: "Features", path: "/features" },
+    { label: "Pricing", path: "/pricing" },
+    { label: "Blog", path: "/blog" },
+  ];
 
   return (
     <header className="bg-white shadow relative z-50">
       <div className="mx-auto max-w-7xl px-4 h-16 flex items-center justify-between">
         
-        {/* ✅ Logo */}
-        <a className="text-teal-600 font-bold text-xl" href="#">
+        {/* Logo */}
+        <Link to="/" className="text-teal-600 font-bold text-xl">
           MySite
-        </a>
+        </Link>
 
-        {/* ✅ Desktop Menu */}
+        {/* Desktop Menu */}
         <nav className="hidden md:block">
           <ul className="flex items-center gap-6 text-sm">
-            {["About", "Careers", "History", "Services", "Projects", "Blog"].map(
-              (item) => (
-                <li key={item}>
-                  <a
-                    href="#"
-                    className="text-gray-600 hover:text-gray-800 transition"
-                  >
-                    {item}
-                  </a>
-                </li>
-              )
-            )}
+            {menuItems.map((item) => (
+              <li key={item.path}>
+                <Link
+                  to={item.path}
+                  className="text-gray-600 hover:text-gray-800 transition"
+                >
+                  {item.label}
+                </Link>
+              </li>
+            ))}
           </ul>
         </nav>
 
-        {/* ✅ Profile + Mobile Button */}
+        {/* Profile + Mobile Button */}
         <div className="flex items-center gap-4">
           
-          {/* ✅ Profile Dropdown */}
+          {/* Profile Dropdown */}
           <div className="relative hidden md:block">
             <button
               onClick={() => setIsProfileOpen((prev) => !prev)}
@@ -49,20 +59,21 @@ const Navbar = () => {
 
             {isProfileOpen && (
               <div className="absolute right-0 mt-2 w-48 bg-white border shadow rounded-md animate-fadeIn">
-                <a className="block px-4 py-2 text-sm hover:bg-gray-50" href="#">
-                  My Profile
-                </a>
-                <a className="block px-4 py-2 text-sm hover:bg-gray-50" href="#">
-                  Settings
-                </a>
-                <button className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50">
+                <Link
+                  to="/dashboard"
+                  className="block w-full text-left px-4 py-2 hover:bg-gray-50 rounded"
+                  onClick={() => setIsProfileOpen(false)}
+                >
+                  Dashboard
+                </Link>
+                <button className="block w-full text-left px-4 py-2 text-red-600 hover:bg-red-50 rounded">
                   Logout
                 </button>
               </div>
             )}
           </div>
 
-          {/* ✅ Mobile Menu Button */}
+          {/* Mobile Menu Button */}
           <button
             className="block md:hidden p-2 border rounded"
             onClick={() => setIsMenuOpen((prev) => !prev)}
@@ -85,31 +96,31 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* ✅ Mobile Menu Dropdown */}
+      {/* Mobile Menu Dropdown */}
       {isMenuOpen && (
         <div className="md:hidden bg-white border-t shadow animate-slideDown">
           <ul className="flex flex-col gap-1 p-4">
-            {["About", "Careers", "History", "Services", "Projects", "Blog"].map(
-              (item) => (
-                <li key={item}>
-                  <a
-                    href="#"
-                    className="block px-2 py-2 text-gray-700 hover:bg-gray-50 rounded"
-                  >
-                    {item}
-                  </a>
-                </li>
-              )
-            )}
+            {menuItems.map((item) => (
+              <li key={item.path}>
+                <Link
+                  to={item.path}
+                  className="block px-2 py-2 text-gray-700 hover:bg-gray-50 rounded"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  {item.label}
+                </Link>
+              </li>
+            ))}
 
-            {/* ✅ Mobile Profile Section */}
+            {/* Mobile Profile Section */}
             <li className="mt-3 border-t pt-3">
-              <button className="block w-full text-left px-2 py-2 hover:bg-gray-50 rounded">
-                My Profile
-              </button>
-              <button className="block w-full text-left px-2 py-2 hover:bg-gray-50 rounded">
-                Settings
-              </button>
+              <Link
+                to="/dashboard"
+                className="block w-full text-left px-2 py-2 hover:bg-gray-50 rounded"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Dashboard
+              </Link>
               <button className="block w-full text-left px-2 py-2 text-red-600 hover:bg-red-50 rounded">
                 Logout
               </button>
@@ -118,7 +129,7 @@ const Navbar = () => {
         </div>
       )}
 
-      {/* ✅ Animations */}
+      {/* Animations */}
       <style>{`
         @keyframes slideDown {
           from { opacity: 0; transform: translateY(-8px); }
@@ -139,6 +150,5 @@ const Navbar = () => {
     </header>
   );
 };
-
 
 export default Navbar;
