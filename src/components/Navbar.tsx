@@ -15,9 +15,9 @@ const Navbar = () => {
     { label: "About", path: "/about" },
     { label: "Contact", path: "/contect" },
     { label: "FAQ", path: "/faq" },
-    { label: "Features", path: "/features" },
     { label: "Pricing", path: "/pricing" },
     { label: "Blog", path: "/blog" },
+    { label: "login", path: "/login" , className: "text-blue-600"},
   ];
 
     const isActiveRoute = (path: string) => {
@@ -47,7 +47,7 @@ const Navbar = () => {
 
         {/* Logo */}
         <Link to="/" className="text-teal-600 font-bold text-xl">
-          MySite
+          digitalWALLET
         </Link>
 
         {/* Desktop Menu */}
@@ -61,7 +61,7 @@ const Navbar = () => {
                     isActiveRoute(item.path)
                       ? "text-teal-600 font-semibold border-b-2 border-teal-600 pb-1"
                       : "text-gray-600 hover:text-gray-800"
-                  }`}
+                  } ${item.label === "login" ? "text-teal-800 bg-gray-300 py-2 px-3 rounded-full font-bold" : ""}`}
                 >
                   {item.label}
                 </Link>
@@ -79,7 +79,7 @@ const Navbar = () => {
               className="rounded-full border overflow-hidden"
             >
               <img
-                src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80"
+                src="https://png.pngtree.com/png-clipart/20220911/original/pngtree-menu-button-3d-icon-render-png-image_8541911.png"
                 className="w-10 h-10 object-cover"
                 alt="profile"
               />
