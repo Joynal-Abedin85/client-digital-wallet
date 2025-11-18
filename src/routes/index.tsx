@@ -26,7 +26,7 @@ import Deposit from "@/pages/user/deposit";
 import Profile from "@/pages/user/profile";
 import Send from "@/pages/user/sendmoney";
 import Transactions from "@/pages/user/transection";
-import UserDashboard from "@/pages/user/userdashboard";
+import UserDashboard from "@/pages/user/Userdashboard";
 import Withdraw from "@/pages/user/withdraw";
 import { createBrowserRouter } from "react-router";
 
