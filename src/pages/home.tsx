@@ -2,6 +2,7 @@ import AnalyticsPage from "./analytics";
 import HowItWorks from "./compo1";
 import Testimonials from "./compo2";
 import Features from "./Features";
+import StatsPage from "./stat";
 
 const home = () => {
     return (
@@ -10,6 +11,7 @@ const home = () => {
             <HowItWorks></HowItWorks>
             <Testimonials></Testimonials>
             <AnalyticsPage></AnalyticsPage>
+            <StatsPage></StatsPage>
         </div>
     );
 };
