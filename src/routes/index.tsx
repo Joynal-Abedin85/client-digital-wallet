@@ -21,6 +21,8 @@ import Features from "@/pages/Features";
 import home from "@/pages/home";
 import DashboardPage from "@/pages/maindashboard";
 import Pricing from "@/pages/pricing";
+import PrivacyPolicy from "@/pages/privacy";
+import Terms from "@/pages/terms";
 import Unauthorized from "@/pages/Unauthorized";
 import Deposit from "@/pages/user/deposit";
 import Profile from "@/pages/user/profile";
@@ -62,6 +64,14 @@ export const router = createBrowserRouter([
       {
         Component: Blog,
         path: "blog",
+      },
+      {
+        Component: Terms,
+        path: "terms",
+      },
+      {
+        Component: PrivacyPolicy,
+        path: "privacy",
       },
     ],
   },
