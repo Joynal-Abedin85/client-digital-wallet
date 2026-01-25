@@ -1,3 +1,4 @@
+import AnalyticsPage from "./analytics";
 import HowItWorks from "./compo1";
 import Testimonials from "./compo2";
 import Features from "./Features";
@@ -8,6 +9,7 @@ const home = () => {
             <Features></Features>
             <HowItWorks></HowItWorks>
             <Testimonials></Testimonials>
+            <AnalyticsPage></AnalyticsPage>
         </div>
     );
 };
