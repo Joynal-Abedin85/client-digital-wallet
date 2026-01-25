@@ -1,4 +1,6 @@
+import type { RootState } from "@/redux/store";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router";
 import { toast } from "sonner";
 
@@ -7,6 +9,9 @@ const Navbar = () => {
   const [isProfileOpen, setIsProfileOpen] = useState(false); 
   const navigate = useNavigate();
     const location = useLocation(); // <-- current route ধরবে
+
+  const user = useSelector((state: RootState) => state.auth.user);
+    
 
 
   // Menu items
@@ -17,7 +22,9 @@ const Navbar = () => {
     { label: "FAQ", path: "/faq" },
     { label: "Pricing", path: "/pricing" },
     { label: "Blog", path: "/blog" },
-    { label: "login", path: "/login" , className: "text-blue-600"},
+      ...(!user
+    ? [{ label: "Login", path: "/login", className: "text-blue-600" }]
+    : []),
   ];
 
     const isActiveRoute = (path: string) => {

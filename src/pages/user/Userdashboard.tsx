@@ -14,7 +14,7 @@ const UserDashboard = () => {
     <div className="p-6">
       <h1 className="text-xl font-bold">Welcome, {user.name}</h1>
       <p>Email: {user.email}</p>
-      <p>ID: {user.id}</p>
+      <p>ID: {user._id}</p>
 
       <h2 className="mt-4 text-lg font-semibold">Wallet Info</h2>
       <p>Balance: {data?.data?.balance}</p>
